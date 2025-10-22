@@ -44,10 +44,11 @@ public class Main {
                     blank += " ";
                     prdName = list.get(i).name.toString()+blank;
                 }
-            menuTemplate += (i+1)+". "+prdName+"|"+" W"+list.get(i).price+"|"+list.get(i).description+"\n";
+            menuTemplate += (i+1)+". "+prdName+"|"+" W"+list.get(i).price+" | "+list.get(i).description+"\n";
         }
         menuTemplate += "0. 종료      | 종료";
         while(true){
+            System.out.println("[ SHAKESHACK MENU ]");
             System.out.println(menuTemplate);
             try{
                 int input = sc.nextInt();
