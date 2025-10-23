@@ -23,25 +23,14 @@ public class Kiosk {
             System.out.println(menuTemplate);
             try{
                 int input = sc.nextInt();
-                switch(input) {
-                    case 1 :
-                        System.out.println(list.get(input-1).name.toString()+" (이/가) 주문 되었습니다");
-                        break;
-                    case 2 :
-                        System.out.println(list.get(input-1).name.toString()+" (이/가) 주문 되었습니다");
-                        break;
-                    case 3 :
-                        System.out.println(list.get(input-1).name.toString()+" (이/가) 주문 되었습니다");
-                        break;
-                    case 4 :
-                        System.out.println(list.get(input-1).name.toString()+" (이/가) 주문 되었습니다");
-                        break;
-                    case 0 :
-                        System.out.println("프로그램을 종료합니다.");
-                        return;
-                    default:
-                        System.out.println("주문번호만 정확히 입력해주세요.");
-                        break;
+                if (input > 0 && input <= list.size()) {
+                    MenuItem selected = list.get(input - 1);
+                    System.out.println(selected.name + " (이/가) 주문 되었습니다");
+                } else if (input == 0) {
+                    System.out.println("프로그램을 종료합니다.");
+                    return;
+                } else {
+                    System.out.println("주문번호만 정확히 입력해주세요.");
                 }
             }
             catch(InputMismatchException e){
@@ -57,12 +46,13 @@ public class Kiosk {
         for(int i = 0; i<list.size(); i++) {
             String prdName = "";
             String blank ="";
-            int blankArea = 15 - list.get(i).name.toString().length();
+            MenuItem item = list.get(i);
+            int blankArea = 15 - item.name.toString().length();
             for(int j = 0;j<blankArea;j++){
                 blank += " ";
-                prdName = list.get(i).name.toString()+blank;
+                prdName = item.name.toString()+blank;
             }
-            menuTemplate += (i+1)+". "+prdName+"|"+" W"+list.get(i).price+" | "+list.get(i).description+"\n";
+            menuTemplate += (i+1)+". "+prdName+"|"+" W"+item.price+" | "+item.description+"\n";
         }
         menuTemplate += " 0. 종료      | 종료 ";
         return menuTemplate;
