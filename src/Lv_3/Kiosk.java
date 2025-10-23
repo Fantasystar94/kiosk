@@ -16,19 +16,8 @@ public class Kiosk {
     //기
     public void start() {
         Scanner sc = new Scanner(System.in);
-        String menuTemplate = "";
+        String menuTemplate = setMenuTerminal(list);
 
-        for(int i = 0; i<list.size(); i++) {
-            String prdName = "";
-            String blank ="";
-            int blankArea = 15 - list.get(i).name.toString().length();
-            for(int j = 0;j<blankArea;j++){
-                blank += " ";
-                prdName = list.get(i).name.toString()+blank;
-            }
-            menuTemplate += (i+1)+". "+prdName+"|"+" W"+list.get(i).price+" | "+list.get(i).description+"\n";
-        }
-        menuTemplate += "0. 종료      | 종료";
         while(true){
             System.out.println("[ SHAKESHACK MENU ]");
             System.out.println(menuTemplate);
@@ -60,6 +49,23 @@ public class Kiosk {
                 sc.nextLine();
             }
         }
+    }
+
+    // 메뉴명이 일관되게 왼쪽정렬 할 수 있게 만드는 메소드
+    private String setMenuTerminal(List<MenuItem> list) {
+        String menuTemplate = "";
+        for(int i = 0; i<list.size(); i++) {
+            String prdName = "";
+            String blank ="";
+            int blankArea = 15 - list.get(i).name.toString().length();
+            for(int j = 0;j<blankArea;j++){
+                blank += " ";
+                prdName = list.get(i).name.toString()+blank;
+            }
+            menuTemplate += (i+1)+". "+prdName+"|"+" W"+list.get(i).price+" | "+list.get(i).description+"\n";
+        }
+        menuTemplate += " 0. 종료      | 종료 ";
+        return menuTemplate;
     }
 
 }
