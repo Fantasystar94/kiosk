@@ -7,13 +7,26 @@ package Lv_4;
  * - `new MenuItem("ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거")`
  * */
 public class MenuItem {
-    String name;
-    double price;
-    String description;
+    private String name;
+    private double price;
+    private String description;
 
     MenuItem(String name, double price, String description) {
         this.name = name;
         this.price = price;
         this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public double getPrice() {
+        return price;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public String toString(){
+        return name;
     }
 }
