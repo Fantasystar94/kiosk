@@ -10,7 +10,8 @@ public class Kiosk {
     //속
     private Scanner sc = new Scanner(System.in);
     private List<Menu> list;
-
+    private int firstInput;
+    private int secondInput;
 
     //생
     Kiosk(List<Menu> list) {
@@ -36,7 +37,7 @@ public class Kiosk {
             secondDepth(b);
         }
     }
-    int firstDepth(){
+    int firstDepth() {
         boolean flag = true;
         int input = sc.nextInt();
         while (flag) {
@@ -61,7 +62,7 @@ public class Kiosk {
         return input;
     }
 
-    void secondDepth(int input){
+    void secondDepth(int input) {
         boolean flag = true;
         int input2 = 0;
         switch (input) {
@@ -100,15 +101,16 @@ public class Kiosk {
 
                 try{
                     int realInput = input2-1;
-                    if(input2 >= 1 && input2<=list.get(input-1).getList().size()) {
+                    if (input2 >= 1 && input2<=list.get(input-1).getList().size()) {
 
                         String menuName= list.get(input-1).getList().get(realInput).getName();
                         double price = list.get(input-1).getList().get(realInput).getPrice();
                         String description = list.get(input-1).getList().get(realInput).getDescription();
 
                         System.out.println("선택한 메뉴:"+" "+menuName+" | "+" W "+price+" | "+description);
+                        thirdDepth(input,input2);
                     }
-                    else if(input2 == 0){
+                    else if (input2 == 0) {
                         flag = false;
                     }
                     else {
@@ -122,6 +124,27 @@ public class Kiosk {
             flag = false;
         }
     }
+    // 규칙 만들자.
+    void thirdDepth(int input1, int input2) {
+        boolean flag = true;
+        int input3 = 0;
+        while (flag) {
+            System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
+            System.out.println("1. 확인     | 2. 취소     ");
+            input3 = sc.nextInt();
+            try{
+              if (input3 == 1) {
+                 String select = list.get(input1-1).getList().get(input2-1).getName();
+                  System.out.println(select+" 이/가 장바구니에 추가되었습니다.");
+                  flag = false;
+              }
+            }
+            catch (InputMismatchException e) {
+
+            }
+        }
+    }
+
 
     String formatText(int index, String name,double price, String description,String blank ){
         String menuTamplate = "";
