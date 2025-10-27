@@ -20,14 +20,8 @@ public class Menu {
     public List<MenuItem> getList() {
         return list;
     }
-    public String getCategoryName() {
-        return categoryName;
-    }
     public String getMainCategoryName(int i) {
         return i+1+". "+categoryName+"\n";
-    }
-    public String getMenusOrder(int i) {
-            return list.get(i).getName()+list.get(i).getPrice()+list.get(i).getDescription();
     }
     public String getName(int i) {
         return list.get(i).getName();
