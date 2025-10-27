@@ -86,13 +86,18 @@ public class Kiosk {
                 for (int k = 0; k < blankArea; k++) {
                     blank += " ";
                 }
+
+                String name = list.get(input - 1).getList().get(j).getName();
                 double price = list.get(input - 1).getPrice(j);
                 String description = list.get(input - 1).getDescription(j);
-                menuTemplate += (j + 1) + ". " + list.get(input - 1).getList().get(j).getName() + blank + "|"+" W "+price+" | "+description;
+
+                menuTemplate = formatText(j, name, price, description, blank);
+
                 System.out.println(menuTemplate);
             }
             System.out.println("0. 뒤로가기 ");
             input2 = sc.nextInt();
+
                 try{
                     int realInput = input2-1;
                     if(input2 >= 1 && input2<=list.get(input-1).getList().size()) {
@@ -118,5 +123,9 @@ public class Kiosk {
         }
     }
 
-
+    String formatText(int index, String name,double price, String description,String blank ){
+        String menuTamplate = "";
+        menuTamplate += (index + 1) + ". " + name + blank + "|"+" W "+price+" | "+description;
+        return menuTamplate;
+    }
 }
