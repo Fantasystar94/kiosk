@@ -4,11 +4,10 @@ import java.util.List;
 
 // Menu: MenuItem 클래스를 관리하는 클래스
 // 예시 : 버거 메뉴, 음료 메뉴 등 각 카테고리 내에 여러 MenuItem을 포함합니다.
-public class Menu {
+public class Menu implements ItemContainer {
     //속
     private List<MenuItem> list;
     private String categoryName;
-
     //생
     Menu(List<MenuItem> list, String categoryName) {
         this.list = list;
@@ -32,6 +31,33 @@ public class Menu {
     public String getDescription(int i) {
         return list.get(i).getDescription();
     }
+
+
+    public String printAllMenuItems(int index) {
+        String menuTemplate = "";
+        for(int j = 0;j< getList().size(); j++) {
+
+            String blank = "";
+            int blankArea = 15 - getName(j).length();
+
+            for (int k = 0; k < blankArea; k++) {
+                blank += " ";
+            }
+
+            String name = getName(j);
+            double price = getPrice(j);
+            String description = getDescription(j);
+            menuTemplate += formatText(j, name, price, description, blank);
+        }
+        return menuTemplate;
+    }
+
+    String formatText(int index, String name,double price, String description,String blank ){
+        String menuTamplate = "";
+        menuTamplate += (index + 1) + ". " + name + blank + "|"+" W "+price+" | "+description+"\n";
+        return menuTamplate;
+    }
+
 }
 
 
