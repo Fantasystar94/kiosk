@@ -20,29 +20,6 @@ public class Kiosk {
         this.list = list;
     }
     //기
-    public int getFirstInput() {
-        return firstInput;
-    }
-
-    public void setFirstInput(int firstInput) {
-        this.firstInput = firstInput;
-    }
-
-    public int getSecondInput() {
-        return secondInput;
-    }
-
-    public void setSecondInput(int secondInput) {
-        this.secondInput = secondInput;
-    }
-
-    public int getThirdInput() {
-        return thirdInput;
-    }
-
-    public void setThirdInput(int thirdInput) {
-        this.thirdInput = thirdInput;
-    }
 
 
     void start() {
@@ -64,7 +41,7 @@ public class Kiosk {
     // 1. 메뉴판 세팅
     boolean firstDepth() {
         boolean flag = true;
-        setFirstInput(sc.nextInt());
+        firstInput = sc.nextInt();
         while (flag) {
             try{
                 int realInput = firstInput-1;
@@ -93,7 +70,7 @@ public class Kiosk {
     void secondDepth() {
         boolean flag = true;
 
-        switch (getFirstInput()) {
+        switch (firstInput) {
             case 1 :
                 System.out.println("[ BURGERS MENU ]");
                 break;
@@ -105,24 +82,24 @@ public class Kiosk {
                 break;
         }
         while(flag) {
-            String printAllMenuItems = list.get(getFirstInput()-1).printAllMenuItems(getFirstInput());
+            String printAllMenuItems = list.get(firstInput-1).printAllMenuItems(firstInput);
             System.out.println(printAllMenuItems);
             System.out.println("0. 뒤로가기 ");
-            setSecondInput(sc.nextInt());
+            secondInput = sc.nextInt();
 
                 try{
-                    int realInput = getSecondInput()-1;
-                    if (getSecondInput() >= 1 && getSecondInput()<=list.get(getFirstInput()-1).getList().size()) {
+                    int realInput = secondInput-1;
+                    if (secondInput >= 1 && secondInput <= list.get(firstInput).getList().size()) {
 
-                        String menuName = list.get(getFirstInput()-1).getList().get(realInput).getName();
-                        double price = list.get(getFirstInput()-1).getList().get(realInput).getPrice();
-                        String description = list.get(getFirstInput()-1).getList().get(realInput).getDescription();
+                        String menuName = list.get(firstInput).getList().get(realInput).getName();
+                        double price = list.get(firstInput).getList().get(realInput).getPrice();
+                        String description = list.get(firstInput).getList().get(realInput).getDescription();
 
                         System.out.println( "선택한 메뉴:"+" "+ menuName +" | "+" W "+ price +" | "+ description );
                         //올바른 메뉴가 선택된 상태일 경우 세번째 선택과정으로
                         thirdDepth();
                     }
-                    else if (getSecondInput() == 0) {
+                    else if (secondInput == 0) {
                         break;
                     }
                     else {
@@ -142,19 +119,19 @@ public class Kiosk {
         while (flag) {
             System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
             System.out.println("1. 확인     | 2. 취소     ");
-            setThirdInput(sc.nextInt());
+            thirdInput = sc.nextInt();
             try{
 
-                if (getThirdInput() == 1) {
-                    String select = list.get(getFirstInput()-1).getList().get(getSecondInput()-1).getName();
-                    double price = list.get(getFirstInput()-1).getList().get(getSecondInput()-1).getPrice();
-                    String description = list.get(getFirstInput()-1).getList().get(getSecondInput()-1).getDescription();
+                if (thirdInput == 1) {
+                    String select = list.get(firstInput-1).getList().get(secondInput-1).getName();
+                    double price = list.get(firstInput-1).getList().get(secondInput-1).getPrice();
+                    String description = list.get(firstInput-1).getList().get(secondInput-1).getDescription();
 
                     System.out.println(select+" 이/가 장바구니에 추가되었습니다.");
                     CartList cartlist = new CartList(select, price, description);
                     cart.addItem(cartlist);
 
-                    System.out.println(cart.printAllMenuItems(getThirdInput()));
+                    System.out.println(cart.printAllMenuItems(thirdInput));
 
                     flag = false;
                 }
