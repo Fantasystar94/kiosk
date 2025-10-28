@@ -33,7 +33,7 @@ public class Menu implements ItemContainer {
     }
 
 
-    public String printAllMenuItems(int index) {
+    public String printAllMenuItems() {
         String menuTemplate = "";
         for(int j = 0;j< getList().size(); j++) {
 

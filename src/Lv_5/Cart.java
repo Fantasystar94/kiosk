@@ -1,5 +1,6 @@
 package Lv_5;
 
+import java.util.Collection;
 import java.util.List;
 
 public class Cart implements ItemContainer{
@@ -14,7 +15,10 @@ public class Cart implements ItemContainer{
         list.add(cartlist);
     }
 
-    public String printAllMenuItems(int index) {
+    public void removeItem(){
+        list.clear();
+    }
+    public String printAllMenuItems() {
         String menuTemplate = "";
         for(int j=0;j<getList().size();j++) {
 
@@ -37,6 +41,16 @@ public class Cart implements ItemContainer{
         String menuTamplate = "";
         menuTamplate += (index + 1) + ". " + name + blank + "|"+" W "+price+" | "+description+"\n";
         return menuTamplate;
+    }
+
+    String printTotalPrice() {
+        String menuTemplate = "";
+        double total = 0;
+        for (int i = 0; i < getList().size(); i++) {
+            total += getPrice(i);
+        }
+        menuTemplate += "W "+total;
+        return menuTemplate;
     }
 
     public List<CartList> getList() {
