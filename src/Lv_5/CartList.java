@@ -2,7 +2,7 @@ package Lv_5;
 
 import java.util.ArrayList;
 import java.util.List;
-public class CartList  {
+public class CartList  {//CartItem => 변경
     //속
     private String name;
     private double price;

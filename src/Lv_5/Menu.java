@@ -4,7 +4,7 @@ import java.util.List;
 
 // Menu: MenuItem 클래스를 관리하는 클래스
 // 예시 : 버거 메뉴, 음료 메뉴 등 각 카테고리 내에 여러 MenuItem을 포함합니다.
-public class Menu implements ItemContainer {
+public class Menu {
     //속
     private List<MenuItem> list;
     private String categoryName;
@@ -16,11 +16,11 @@ public class Menu implements ItemContainer {
 
     //기
 
-    public List<MenuItem> getList() {
+    public List<MenuItem> getMenuItemList() {
         return list;
     }
-    public String getMainCategoryName(int i) {
-        return i+1+". "+categoryName+"\n";
+    public String getMainCategoryName() {
+        return categoryName;
     }
     public String getName(int i) {
         return list.get(i).getName();
@@ -31,11 +31,13 @@ public class Menu implements ItemContainer {
     public String getDescription(int i) {
         return list.get(i).getDescription();
     }
-
+    public int getMenuSize() {
+        return list.size();
+    }
 
     public String printAllMenuItems() {
-        String menuTemplate = "";
-        for(int j = 0;j< getList().size(); j++) {
+        String menuTemplate = "[ " + getMainCategoryName() + " ]"+ "\n" ;
+        for(int j = 0;j < getMenuSize(); j++) {
 
             String blank = "";
             int blankArea = 15 - getName(j).length();
@@ -49,10 +51,11 @@ public class Menu implements ItemContainer {
             String description = getDescription(j);
             menuTemplate += formatText(j, name, price, description, blank);
         }
+        menuTemplate += "0. 뒤로가기";
         return menuTemplate;
     }
 
-    String formatText(int index, String name,double price, String description,String blank ){
+    String formatText(int index, String name,double price, String description, String blank ){
         String menuTamplate = "";
         menuTamplate += (index + 1) + ". " + name + blank + "|"+" W "+price+" | "+description+"\n";
         return menuTamplate;

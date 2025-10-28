@@ -3,7 +3,7 @@ package Lv_5;
 import java.util.Collection;
 import java.util.List;
 
-public class Cart implements ItemContainer{
+public class Cart {
     //속
     private List<CartList> list;
 

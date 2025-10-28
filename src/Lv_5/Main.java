@@ -24,26 +24,26 @@ public class Main {
         buergerList.add(new MenuItem("Hamburger2", 5.4, "2"));
         buergerList.add(new MenuItem("Hamburger3", 5.4, "3"));
         buergerList.add(new MenuItem("Hamburger4", 5.4, "4"));
-        Menu Hamburger = new Menu(buergerList,"Hamburger");
+        Menu hamburger = new Menu(buergerList,"Hamburger");
 
         List<MenuItem> drinkList = new ArrayList<>();
         drinkList.add(new MenuItem("Coke",2.0,"근본 음료수 코카콜라"));
         drinkList.add(new MenuItem("Zero Coke",2.0,"근본 음료수 코카콜라 제로"));
         drinkList.add(new MenuItem("Dr.Pepper",3.5,"미국거라 좀 비쌈"));
         drinkList.add(new MenuItem("Ice Coffee",2.5,"체중관리를 위해 아아 마시기"));
-        Menu Drink = new Menu(drinkList,"Drink");
+        Menu drink = new Menu(drinkList,"Drink");
 
 
         List<MenuItem> dessertList = new ArrayList<>();
         dessertList.add(new MenuItem("French fries",3.0,"버거는 감튀와 함께"));
         dessertList.add(new MenuItem("Nuggets",5.0,"추억의 용가리 치킨맛"));
         dessertList.add(new MenuItem("Cheese Stick",4.0,"쫄깃바삭 치즈스틱"));
-        Menu Dessert = new Menu(dessertList,"Dessert");
+        Menu dessert = new Menu(dessertList,"Dessert");
 
         List<Menu> totalMenus = new ArrayList<>();
-        totalMenus.add(Hamburger);
-        totalMenus.add(Drink);
-        totalMenus.add(Dessert);
+        totalMenus.add(hamburger);
+        totalMenus.add(drink);
+        totalMenus.add(dessert);
         Kiosk kiosk = new Kiosk(totalMenus);
         kiosk.start();
     }
