@@ -35,20 +35,39 @@ public class Cart {
     }
 
     public String printTotalPrice() {
-        String totalPrice = "[ Total ] \n";
         double calcul = 0;
         for (MenuItem item : list.keySet()) {
             calcul += item.getPrice() * list.get(item);
         }
-        totalPrice += " W " + calcul;
+        String totalPrice = String.format("[ Total ] \n W %.1f",calcul);
         return totalPrice;
     }
 
-//    public HashMap<MenuItem, Integer> getCart() {
-//        return list;
-//    }
+    public double calculateDiscountedPrice(int discount) {
+        double calculatedPrice = 0;
+        for (MenuItem item : list.keySet()) {
+            calculatedPrice += item.getPrice() * list.get(item);
+        }
+        switch (discount) {
+            case 1 :
+                calculatedPrice = calculatedPrice - calculatedPrice * 0.1;
+                break;
+            case 2 :
+                calculatedPrice = calculatedPrice - calculatedPrice * 0.05;
+                break;
+            case 3 :
+                calculatedPrice = calculatedPrice - calculatedPrice * 0.03;
+                break;
+            case 4 :
+                calculatedPrice = calculatedPrice;
+                break;
+            default :
+                calculatedPrice = calculatedPrice;
+        }
+        return calculatedPrice;
+    }
 
-    public void removeItem(){
+    public void removeItem() {
         list.clear();
     }
 
