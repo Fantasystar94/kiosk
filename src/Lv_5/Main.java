@@ -14,6 +14,7 @@ import java.util.*;
  - [ ]  메뉴 카테고리 이름을 반환하는 메서드가 구현되어야 합니다.
  * */
 
+
 public class Main {
     public static void main(String[] args) {
         List<MenuItem> buergerList = new ArrayList<>();
@@ -40,11 +41,12 @@ public class Main {
         dessertList.add(new MenuItem("Cheese Stick",4.0,"쫄깃바삭 치즈스틱"));
         Menu dessert = new Menu(dessertList,"Dessert");
 
+        Cart cart = new Cart();
         List<Menu> totalMenus = new ArrayList<>();
         totalMenus.add(hamburger);
         totalMenus.add(drink);
         totalMenus.add(dessert);
-        Kiosk kiosk = new Kiosk(totalMenus);
+        Kiosk kiosk = new Kiosk(totalMenus,cart);
         kiosk.start();
     }
 }

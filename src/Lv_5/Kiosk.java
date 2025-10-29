@@ -1,47 +1,46 @@
 package Lv_5;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 // Kiosk: 프로그램 순서 및 흐름 제어를 담당하는 클래스
 public class Kiosk {
     //속
     private Scanner sc = new Scanner(System.in);
     private List<Menu> list;
-    private List<MenuItem> menuItem;
-    private int inputs;
     private Menu selectedMenu;
     private MenuItem selectedMenuItem;
-    private Cart cart = new Cart(new ArrayList<CartList>());
+    private int amount;
+    private Cart cart;
     //생
-    Kiosk(List<Menu> list) {
+    Kiosk(List<Menu> list,Cart cart) {
+        this.cart = cart;
         this.list = list;
     }
     //기
     void start() {
+        boolean startContoller = true;
         while (true) {
-
             //1. 카테고리 처리
-            selectedMenu = handleCategory();
-
-            if(selectedMenu == null ) {
+            startContoller = handleCategory();
+            if(!startContoller) {
                 break;
             }
             //2. 메뉴아이템 처리
-            selectedMenuItem = handleMenuList();
-            if (selectedMenuItem == null ) {
+            startContoller = handleMenuList();
+            if (!startContoller) {
                 continue;
             }
             //3. 장바구니 처리
-            // ../
+            startContoller = handleCart();
+            if (!startContoller) {
+                continue;
+            }
         }
     }
 
-    Menu handleCategory() {
+    boolean handleCategory() {
         // 1. 카테고리 메뉴 출력
-        while( true ) {
+        while (true) {
             String category = "[ MAIN MENU ]" + "\n";
             for(int i = 0; i < list.size(); i++) {
                 category += (i+1) + ". " + list.get(i).getMainCategoryName() + "\n";
@@ -54,23 +53,24 @@ public class Kiosk {
             int inputs = scanningIntegerInput();
 
             // 3. 입력값에 해당하는 카테고리 출력하기
-            if ( inputs >= 1 && inputs <= list.size()) {
-                Menu selectedMenu = list.get( inputs - 1 );
-                return selectedMenu;
-            } else if ( inputs == 0 ) {
+            if (inputs >= 1 && inputs <= list.size()) {
+                selectedMenu = list.get( inputs - 1 );
+            } else if (inputs == 0) {
                 System.out.println("종료합니다. ");
-                return null;
+                return false;
             } else {
                 System.out.println("올바른 숫자를 입력해주세요");
             }
+            return true;
         }
     }
 
-    MenuItem handleMenuList() {
+    boolean handleMenuList() {
+
         // 1. 메뉴아이템 출력
         String menutemplate = selectedMenu.printAllMenuItems();
         System.out.println(menutemplate);
-        MenuItem selectedItem;
+
         // 2. 선택할 메뉴아이템 입력받기
         System.out.println("원하는 메뉴를 선택해주세요");
         int inputs = scanningIntegerInput();
@@ -78,22 +78,55 @@ public class Kiosk {
         // 3. 입력값에 해당하는 메뉴아이템 입력받기
         if ( inputs >= 1 && inputs <= selectedMenu.getMenuSize() ) {
             int index = inputs - 1;
+
             // 4. 입력값에 해당하는 메뉴아아이템 생성하기
-            selectedItem = selectedMenu.getMenuItemList().get(index);
+            selectedMenuItem = selectedMenu.getMenuItemList().get(index);
+
             // 5. 입력값에 해당하는 메뉴아아이템 출력하기
-            System.out.println( "선택한 메뉴:" + " "+ selectedItem.getName() + " | " + " W "+ selectedItem.getPrice() + " | " + selectedItem.getDescription() );
-
-            return selectedItem;
+            System.out.println( "선택한 메뉴:" + " "+ selectedMenuItem.getName() + " | " + " W "+ selectedMenuItem.getPrice() + " | " + selectedMenuItem.getDescription());
+            // 6. 수량 추가하기
+            System.out.println("수량을 입력하세요");
+            amount = scanningIntegerInput();
+            if (amount == 0) {
+                System.out.println("0개는 입력할 수 없습니다.");
+                amount = scanningIntegerInput();
+            }
+            return true;
         } else if ( inputs == 0 ) {
-            return null;
+            return false;
         }
+        else{
+            return true;
+        }
+    }
 
-        return null;
+    boolean handleCart() {
+
+        // 1. 장바구니 입력받기
+        System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
+        System.out.println("1. 확인     | 2. 취소     ");
+        int inputs = scanningIntegerInput();
+
+        // 2. 장바구니 출력
+        if (inputs == 1) {
+            cart.addItem(selectedMenuItem, amount);
+            System.out.println(selectedMenuItem.getName() + " " + amount + " 개" + " 가 장바구니에 추가되었습니다.");
+
+//          3. 장바구니에 담긴 모든 아이템 출력
+            System.out.println(cart.printAllCartItems());
+            System.out.println(cart.printTotalPrice());
+            return true;
+        }
+        else if (inputs == 2) {
+            System.out.println("취소되었습니다.");
+            return false;
+        }
+        return true;
     }
 
     int scanningIntegerInput() {
         int input = 0;
-        while( true ) {
+        while (true) {
             try {
                 input = sc.nextInt();
                 if (input >= 0) {

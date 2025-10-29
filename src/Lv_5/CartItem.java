@@ -1,14 +1,12 @@
 package Lv_5;
 
-import java.util.ArrayList;
-import java.util.List;
-public class CartList  {//CartItem => 변경
+public class CartItem {//CartItem => 변경
     //속
     private String name;
     private double price;
     private String description;
     //생
-    CartList(String name,double price,String description) {
+    CartItem(String name, double price, String description) {
         this.name = name;
         this.price = price;
         this.description = description;

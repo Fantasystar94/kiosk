@@ -37,6 +37,7 @@ public class Menu {
 
     public String printAllMenuItems() {
         String menuTemplate = "[ " + getMainCategoryName() + " ]"+ "\n" ;
+
         for(int j = 0;j < getMenuSize(); j++) {
 
             String blank = "";

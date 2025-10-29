@@ -1,69 +1,56 @@
 package Lv_5;
 
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 public class Cart {
     //속
-    private List<CartList> list;
+    private Map<MenuItem, Integer> list = new HashMap<MenuItem, Integer>();
 
     //생
-    Cart(List<CartList> list) {
-        this.list = list;
+    public void addItem(MenuItem item, int quantity) {
+        if (list.containsKey(item)) {
+            int currentQ = list.get(item);
+            System.out.println(currentQ);
+            currentQ += quantity;
+            list.put(item, currentQ);
+        } else {
+            list.put(item, quantity);
+        }
+
     }
-    public void addItem(CartList cartlist){
-        list.add(cartlist);
+
+    public int getCartSize() {
+        return list.size();
     }
+
+
+    public String printAllCartItems() {
+        String orderListPrint = "";
+        for (MenuItem item : list.keySet()) {
+            orderListPrint += item.getName() + " | " + " W " + item.getPrice() + " | " + item.getDescription() + " | " + list.get(item) + "개 " + "\n";
+        }
+        return orderListPrint;
+    }
+
+    public String printTotalPrice() {
+        String totalPrice = "[ Total ] \n";
+        double calcul = 0;
+        for (MenuItem item : list.keySet()) {
+            calcul += item.getPrice() * list.get(item);
+        }
+        totalPrice += " W " + calcul;
+        return totalPrice;
+    }
+
+//    public HashMap<MenuItem, Integer> getCart() {
+//        return list;
+//    }
 
     public void removeItem(){
         list.clear();
     }
-    public String printAllMenuItems() {
-        String menuTemplate = "";
-        for(int j=0;j<getList().size();j++) {
 
-            String blank = "";
-            int blankArea = 15 - getName(j).length();
-
-            for (int k = 0; k < blankArea; k++) {
-                blank += " ";
-            }
-
-            String name = getName(j);
-            double price = getPrice(j);
-            String description = getDescription(j);
-            menuTemplate += formatText(j, name, price, description, blank);
-        }
-        return menuTemplate;
-    }
-
-    String formatText(int index, String name,double price, String description,String blank ){
-        String menuTamplate = "";
-        menuTamplate += (index + 1) + ". " + name + blank + "|"+" W "+price+" | "+description+"\n";
-        return menuTamplate;
-    }
-
-    String printTotalPrice() {
-        String menuTemplate = "";
-        double total = 0;
-        for (int i = 0; i < getList().size(); i++) {
-            total += getPrice(i);
-        }
-        menuTemplate += "W "+total;
-        return menuTemplate;
-    }
-
-    public List<CartList> getList() {
-        return list;
-    }
-    public String getName(int i) {
-        return list.get(i).getName();
-    }
-    public double getPrice(int i) {
-        return list.get(i).getPrice();
-    }
-    public String getDescription(int i) {
-        return list.get(i).getDescription();
-    }
 
 }
